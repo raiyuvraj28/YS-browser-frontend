@@ -9,6 +9,7 @@
     "dev:electron": "electron electron/main.js",
     "dev": "concurrently -k -n \"vite,electron\" -c \"cyan,yellow\" \"npm run dev:frontend\" \"npm run dev:electron\"",
     "build": "vite build",
+    "dist:win": "vite build && electron-builder --win",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -24,7 +25,27 @@
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
     "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
     "tailwindcss": "^4.0.0-alpha.12",
     "vite": "^5.2.11"
+  },
+  "build": {
+    "appId": "com.yuvraj.ysbrowser",
+    "productName": "YS-Browser",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

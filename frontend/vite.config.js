@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // Generates relative asset paths for file:// protocol compatibility inside Electron
   // Plugins used by Vite. react() compiles React code, tailwindcss() compiles Tailwind v4 CSS on-the-fly
   plugins: [react(), tailwindcss()],
   server: {
