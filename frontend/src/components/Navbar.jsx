@@ -202,15 +202,15 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center gap-3 px-3 py-2 bg-[#151923]/60 backdrop-blur-md border-t border-white/5 relative select-none">
+    <div className="flex items-center gap-1.5 sm:gap-3 px-2 sm:px-3 py-2 bg-[#151923]/60 backdrop-blur-md border-t border-white/5 relative select-none">
       
       {/* 1. Navigation Controls */}
-      <div className="flex items-center gap-1 shrink-0">
+      <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
         <button
           onClick={() => triggerWebviewMethod('goBack')}
           disabled={!activeTab?.canGoBack}
           title="Back"
-          className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
+          className="hidden sm:flex p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
         >
           <ArrowLeft size={16} />
         </button>
@@ -218,7 +218,7 @@ function Navbar() {
           onClick={() => triggerWebviewMethod('goForward')}
           disabled={!activeTab?.canGoForward}
           title="Forward"
-          className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
+          className="hidden sm:flex p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
         >
           <ArrowRight size={16} />
         </button>
@@ -226,7 +226,7 @@ function Navbar() {
           onClick={() => triggerWebviewMethod('reload')}
           disabled={activeTab?.url === 'about:newtab'}
           title="Reload"
-          className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
+          className="hidden sm:flex p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:hover:bg-transparent transition-all cursor-pointer"
         >
           <RotateCw size={16} />
         </button>
@@ -240,8 +240,8 @@ function Navbar() {
       </div>
 
       {/* 2. Omnibox (URL Bar + Suggestions) */}
-      <div ref={suggestionsRef} className="flex-1 relative">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 focus-within:border-cyan-500/50 focus-within:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all">
+      <div ref={suggestionsRef} className="flex-1 relative min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-xl bg-black/40 border border-white/5 focus-within:border-cyan-500/50 focus-within:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all">
           
           {/* Lock / Security Icon */}
           {activeTab?.url.startsWith('https') ? (
@@ -267,7 +267,7 @@ function Navbar() {
               }
             }}
             placeholder="Search Google or type URL"
-            className="flex-1 bg-transparent border-none outline-none text-xs text-white placeholder-gray-500"
+            className="flex-1 bg-transparent border-none outline-none text-xs text-white placeholder-gray-500 min-w-0"
           />
 
           {/* Voice Search Button */}
@@ -315,16 +315,16 @@ function Navbar() {
       </div>
 
       {/* 3. Utility action toggles */}
-      <div className="flex items-center gap-1.5 shrink-0">
+      <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
         
         {/* Split Screen Button */}
         <button
           onClick={toggleSplitScreen}
           title={isSplitScreen ? "Exit Split Screen" : "Split Screen Browsing"}
-          className={`p-2 rounded-lg transition-all cursor-pointer ${
+          className={`hidden sm:flex p-2 rounded-lg transition-all cursor-pointer ${
             isSplitScreen 
               ? 'text-cyan-400 bg-cyan-500/10 border border-cyan-500/20' 
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
+              : 'text-gray-400 hover:bg-white/5'
           }`}
         >
           <Columns size={15} />
@@ -342,8 +342,6 @@ function Navbar() {
         >
           <Shield size={15} />
         </button>
-
-
 
         {/* Settings button */}
         <button

@@ -128,7 +128,7 @@ function CustomNewTab({ tabId }) {
         </div>
         
         {/* Beautiful multi-colored gradient clock */}
-        <h1 className="text-6xl font-extralight tracking-wider bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_2px_15px_rgba(6,182,212,0.2)]">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extralight tracking-wider bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_2px_15px_rgba(6,182,212,0.2)]">
           {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
         </h1>
         <p className="text-gray-400 text-xs mt-2 tracking-wide font-medium">

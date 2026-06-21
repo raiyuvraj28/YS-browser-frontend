@@ -108,10 +108,10 @@ function TabBar() {
   // --- HORIZONTAL TABS LAYOUT ---
   if (!verticalTabs) {
     return (
-      <div className="flex items-center justify-between px-3 h-11 border-b border-white/5 select-none bg-black/30">
+      <div className="flex items-center justify-between px-2 sm:px-3 h-11 border-b border-white/5 select-none bg-black/30">
         
         {/* Left Side: Workspace Selector Pills */}
-        <div className="flex items-center gap-1.5 mr-4">
+        <div className="flex items-center gap-1 mr-2 overflow-x-auto no-scrollbar max-w-[80px] xs:max-w-none shrink-0">
           {workspaces.map(ws => {
             const isActive = ws === activeWorkspace;
             return (
@@ -119,7 +119,7 @@ function TabBar() {
                 key={ws}
                 onClick={() => switchWorkspace(ws)}
                 title={`${ws} Workspace`}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all duration-300 cursor-pointer ${getWorkspaceStyle(ws, isActive)}`}
+                className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all duration-300 cursor-pointer ${getWorkspaceStyle(ws, isActive)}`}
               >
                 {getWorkspaceIcon(ws)}
                 <span className="hidden sm:inline">{ws}</span>
@@ -171,9 +171,9 @@ function TabBar() {
               <div
                 key={tab.id}
                 onClick={() => setActiveTabId(tab.id)}
-                className={`flex items-center justify-between gap-2 pl-3 pr-2 h-8 w-36 md:w-44 rounded-t-lg cursor-pointer transition-all duration-200 border-x shrink-0 group ${getHorizontalTabStyle(tab.id)}`}
+                className={`flex items-center justify-between gap-1.5 pl-2.5 pr-1.5 h-8 w-24 sm:w-36 md:w-44 rounded-t-lg cursor-pointer transition-all duration-200 border-x shrink-0 group ${getHorizontalTabStyle(tab.id)}`}
               >
-                <div className="flex items-center gap-2 overflow-hidden flex-1">
+                <div className="flex items-center gap-1.5 overflow-hidden flex-1">
                   {tab.favicon ? (
                     <img 
                       src={tab.favicon} 
@@ -188,7 +188,7 @@ function TabBar() {
                 </div>
 
                 {/* Right Tab Utilities: Pin & Close */}
-                <div className="flex items-center gap-0.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                <div className="hidden sm:flex items-center gap-0.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -226,9 +226,9 @@ function TabBar() {
 
         {/* Right Side: Incognito Indicator */}
         {incognito && (
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 shrink-0 ml-4 animate-pulse">
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 shrink-0 ml-2 sm:ml-4 animate-pulse">
             <Shield size={12} />
-            <span>Incognito</span>
+            <span className="hidden sm:inline">Incognito</span>
           </div>
         )}
       </div>
@@ -237,21 +237,22 @@ function TabBar() {
 
   // --- VERTICAL TABS LAYOUT (Sidebar style) ---
   return (
-    <div className="w-52 h-full border-r border-white/5 bg-[#0f111a]/80 backdrop-blur-xl flex flex-col shrink-0 select-none">
+    <div className="w-14 sm:w-52 h-full border-r border-white/5 bg-[#0f111a]/80 backdrop-blur-xl flex flex-col shrink-0 select-none transition-all duration-300">
       
       {/* 1. Workspaces Stack */}
-      <div className="p-3 border-b border-white/5 flex flex-col gap-1">
-        <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-1">Workspaces</span>
+      <div className="p-2 sm:p-3 border-b border-white/5 flex flex-col gap-1">
+        <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-1 hidden sm:block">Workspaces</span>
         {workspaces.map(ws => {
           const isActive = ws === activeWorkspace;
           return (
             <button
               key={ws}
               onClick={() => switchWorkspace(ws)}
-              className={`flex items-center gap-2.5 w-full px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 cursor-pointer ${getWorkspaceStyle(ws, isActive)}`}
+              className={`flex items-center justify-center sm:justify-start gap-2.5 w-full px-2 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 cursor-pointer ${getWorkspaceStyle(ws, isActive)}`}
+              title={`${ws} Workspace`}
             >
               {getWorkspaceIcon(ws)}
-              <span>{ws}</span>
+              <span className="hidden sm:inline">{ws}</span>
             </button>
           );
         })}
@@ -259,9 +260,9 @@ function TabBar() {
 
       {/* 2. Pinned Tabs (Grid Layout) */}
       {pinnedTabs.length > 0 && (
-        <div className="p-3 border-b border-white/5">
-          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold block mb-2">Pinned</span>
-          <div className="grid grid-cols-4 gap-1.5">
+        <div className="p-2 sm:p-3 border-b border-white/5">
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:block mb-2">Pinned</span>
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-1.5">
             {pinnedTabs.map(tab => (
               <div
                 key={tab.id}
@@ -296,12 +297,12 @@ function TabBar() {
       )}
 
       {/* 3. Standard Tabs List (Scrollable) */}
-      <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-1 no-scrollbar">
+      <div className="flex-1 overflow-y-auto p-2 sm:p-3 flex flex-col gap-1 no-scrollbar">
         <div className="flex items-center justify-between mb-1.5 pr-1">
-          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Active Tabs</span>
+          <span className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:block">Active Tabs</span>
           <button
             onClick={() => createTab('about:newtab')}
-            className="text-gray-400 hover:text-white p-0.5 rounded hover:bg-white/5 cursor-pointer"
+            className="text-gray-400 hover:text-white p-0.5 rounded hover:bg-white/5 cursor-pointer mx-auto sm:mx-0"
             title="New Tab"
           >
             <Plus size={12} />
@@ -314,9 +315,10 @@ function TabBar() {
             <div
               key={tab.id}
               onClick={() => setActiveTabId(tab.id)}
-              className={`flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-200 border group ${getVerticalTabStyle(tab.id)}`}
+              className={`flex items-center justify-center sm:justify-between gap-2 px-2 sm:px-2.5 py-1.5 rounded-lg cursor-pointer transition-all duration-200 border group ${getVerticalTabStyle(tab.id)}`}
+              title={tab.title}
             >
-              <div className="flex items-center gap-2 overflow-hidden flex-1">
+              <div className="flex items-center justify-center sm:justify-start gap-2 overflow-hidden flex-1">
                 {tab.favicon ? (
                   <img 
                     src={tab.favicon} 
@@ -327,11 +329,11 @@ function TabBar() {
                 ) : (
                   <Globe size={13} className={getGlobeIconColor(isActive)} />
                 )}
-                <span className="text-xs truncate">{tab.title}</span>
+                <span className="text-xs truncate hidden sm:inline">{tab.title}</span>
               </div>
 
               {/* Utility actions */}
-              <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+              <div className="hidden sm:flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -359,11 +361,11 @@ function TabBar() {
       </div>
 
       {/* 4. Bottom Footer Panel */}
-      <div className="p-3 border-t border-white/5 flex flex-col gap-1.5 bg-black/10">
+      <div className="p-2 sm:p-3 border-t border-white/5 flex flex-col gap-1.5 bg-black/10">
         {incognito && (
-          <div className="flex items-center justify-center gap-1.5 py-1 rounded-md text-[10px] font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20">
+          <div className="flex items-center justify-center gap-1.5 py-1 rounded-md text-[10px] font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20" title="Incognito Active">
             <Shield size={10} />
-            <span>Incognito Active</span>
+            <span className="hidden sm:inline">Incognito Active</span>
           </div>
         )}
       </div>
