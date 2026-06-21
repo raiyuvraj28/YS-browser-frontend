@@ -1,0 +1,10 @@
+{
+  "name": "ys-browser-workspace",
+  "version": "1.0.0",
+  "description": "Futuristic desktop browser monorepo root",
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install --prefix frontend",
+    "dev": "npm run dev --prefix frontend"
+  }
+}
