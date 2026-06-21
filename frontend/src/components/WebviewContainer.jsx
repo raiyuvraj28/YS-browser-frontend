@@ -10,8 +10,9 @@ function WebviewContainer({ tab }) {
   const webviewRef = useRef(null);
 
   useEffect(() => {
+    const isElectron = window.navigator.userAgent.toLowerCase().includes('electron');
     const webview = webviewRef.current;
-    if (!webview) return;
+    if (!webview || !isElectron) return;
 
     // 1. Event: Start Loading
     const handleStartLoading = () => {
@@ -101,6 +102,8 @@ function WebviewContainer({ tab }) {
     };
   }, [tab.id, tab.favicon]);
 
+  const isElectron = typeof window !== 'undefined' && window.navigator.userAgent.toLowerCase().includes('electron');
+
   return (
     <div className="w-full h-full relative bg-[#0b0c10]">
       {/* Loading Overlay spinner */}
@@ -108,20 +111,22 @@ function WebviewContainer({ tab }) {
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 animate-pulse z-40"></div>
       )}
       
-      {/* 
-        The Electron Webview Tag.
-        We pass 'data-tab-id' so we can select it in the DOM from our Navbar controls.
-        'src' defines the target website URL.
-        We enable 'allowpopups' to permit external links to open inside standard frames.
-      */}
-      <webview
-        ref={webviewRef}
-        src={tab.url}
-        data-tab-id={tab.id}
-        allowpopups="true"
-        className="w-full h-full border-none rounded-xl"
-        style={{ background: '#ffffff' }}
-      />
+      {isElectron ? (
+        <webview
+          ref={webviewRef}
+          src={tab.url}
+          data-tab-id={tab.id}
+          allowpopups="true"
+          className="w-full h-full border-none rounded-xl"
+          style={{ background: '#ffffff' }}
+        />
+      ) : (
+        <iframe
+          src={tab.url}
+          className="w-full h-full border-none rounded-xl bg-white"
+          title={tab.title}
+        />
+      )}
     </div>
   );
 }
